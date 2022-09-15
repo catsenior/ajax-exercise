@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AjaxExercise</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="turbolinks-cache-control" content="no-cache">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="container">
+      <% if flash[:notice] %>
+        <%= flash[:notice] %>
+      <% end %>
+      <% if flash[:alert] %>
+        <%= flash[:alert] %>
+      <% end %>
+      <% if current_user %>
+        <%= link_to('登出', destroy_user_session_path, method: :delete) %>
+        <%= link_to('修改密碼', edit_registration_path(:user)) %>
+      <% else %>
+        <%= link_to('註冊', new_registration_path(:user)) %> |
+        <%= link_to('登入', new_session_path(:user)) %>
+      <% end %>
+      <div>
+        <%= link_to "jQuery 練習一", jquery_1_path %> |
+        <%= link_to "jQuery 練習二", jquery_2_path %> |
+        <%= link_to "jQuery 練習三", jquery_3_path %> |
+        <%= link_to "jQuery 練習四", jquery_4_path %> |
+        <%= link_to "jQuery 練習五", jquery_5_path %>
+      </div>
+      <%= yield %>
+    </div>
+  </body>
+</html>

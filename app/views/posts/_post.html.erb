@@ -1,0 +1,23 @@
+<div id="post-<%= post.id%>" class="card mb-3">
+  <div class="card-body">
+    <div class="card-title"><%= post.user.display_name %></div>
+    <span id="post-thumbsup-<%= post.id %>" class="text-bg-success"><%= post.likes.count %> 👍</span>
+    <span class="average-score"><%= post.average_score %></span>
+    <div class="raty" data-score="<%= post.find_score(current_user).try(:score) || 0 %>" data-score-url="<%= rate_post_path(post) %>"></div>
+
+    <div class="card-text "><%= post.content %></div>
+    <div id="post-like-<%= post.id%>" class="float-end">
+      <%= render "like", post: post %>
+    </div>
+    <div class="card-text">
+      <% if current_user && current_user.is_admin? %>
+        <%= select_tag "category_id[#{post.id}]", options_for_select(Category.all.map{ |x| [x.name, x.id]}, post.category_id),data: { url: post_path(post) }, prompt: "請選擇分類", class: "select_category" %>
+        <label>
+          <%= check_box_tag "mark_flag[#{post.id}]", 1, post.flag_at.present?,data: { url: toggle_flag_post_path(post) }, class: "toggle-flag" %> 標記為垃圾
+          <span id="post-flag-<%= post.id %>"><%= post.flag_at %></span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+</div>
+

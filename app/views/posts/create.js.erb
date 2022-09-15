@@ -1,0 +1,6 @@
+<% if @post.valid? %>
+  $("#post-list").prepend("<%= escape_javascript(render @post) %>");
+  $("#post_content").val("");
+<% else %>
+  alert("貼文失敗");
+<% end %>
